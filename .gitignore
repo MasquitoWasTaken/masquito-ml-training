@@ -1,4 +1,10 @@
 .vscode/
 
-training_data/
+training_data/logs/
+training_data/models/
+training_data/test/
+training_data/train/
+training_data/cropped/
+
 old_training_data/
+medical-masks-dataset/

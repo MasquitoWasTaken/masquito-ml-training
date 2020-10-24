@@ -4,27 +4,62 @@
 
 Machine learning part of a fullstack application to tell if you're wearing a mask right
 
-Follow https://imageai.readthedocs.io/en/latest/custom/ Prediction model tutorial.
-Used images from https://github.com/cabani/MaskedFace-Net. Our model was trained with 2000 images, 1000 for each category. 750 train, 250 test.
-Note that I used PowerRename to simplify the images' filenames.
-Good = masked properly
-Bad = masked improperly
+Followed ImageAI's [prediction model](https://ImageAI.readthedocs.io/en/latest/custom/)
 
-## training_data_structure
+Used images from [Kaggle](https://www.kaggle.com/ivandanilovich/medical-masks-dataset-images-tfrecords)
+
+## mmds_to_imageai.py
+
+Converts the dataset from Kaggle's format to ImageAI's format
+
+```
+medical-masks-dataset/
+    images/
+        *.jpg
+    labels/
+        *.xml
+```
+
+to
+
+```
+training_data/
+    cropped/
+        mask/
+        none/
+        poor/
+```
+
+## train_model.py
+
+Trains a simple prediction model based on ImageAI's Prediction class
+
+## test_model.py
+
+Test the model against real-world images
+
+To try it out yourself, download `model_*.h5` from the releases tab and place it in `training_data/models/`. Then modify this script's `model` variable to match its filename.
+
+## training_data/ structure
 
 ```
 training_data/
     json/
         model_class.json
     logs/
-        */
     models/
-        model_ex*.h5
     test/
-        good/
-            good-*.(jpg|jpeg|png)
-        bad/
-            bad-*.(jpg|jpeg|png)
+        mask/
+        none/
+        poor/
+    train/
+        mask/
+        none/
+        poor/
+    cropped/
+        mask/
+        none/
+        poor/
 ```
 
 ## pip dependencies
@@ -35,4 +70,5 @@ scipy<1.5
 numpy
 keras
 opencv-python
+pillow
 ```
