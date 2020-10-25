@@ -1,8 +1,8 @@
 from imageai.Prediction.Custom import CustomImagePrediction
 import os
 
-test_image = "test-4.jpg"
-model = "model_ex-018_acc-0.859375.h5"
+test_image = "test-2.jpg"
+model = "model_ex-005_acc-0.945312.h5"
 execution_path = os.getcwd()
 
 # Set up predictor class
