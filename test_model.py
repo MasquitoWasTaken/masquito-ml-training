@@ -1,8 +1,8 @@
 from imageai.Prediction.Custom import CustomImagePrediction
 import os
 
-test_image = "test-1.jpg"
-model = "model_ex-023_acc-0.993750.h5"
+test_image = "test-4.jpg"
+model = "model_ex-018_acc-0.859375.h5"
 execution_path = os.getcwd()
 
 # Set up predictor class
@@ -12,7 +12,7 @@ prediction.setModelPath(os.path.join(
     execution_path, "training_data/models/" + model))
 prediction.setJsonPath(os.path.join(
     execution_path, "training_data/json/model_class.json"))
-prediction.loadModel(num_objects=2)
+prediction.loadModel(num_objects=3)
 
 # Get and display results
 predictions, probabilities = prediction.predictImage(

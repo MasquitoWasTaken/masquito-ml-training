@@ -7,4 +7,9 @@ training_data/train/
 training_data/cropped/
 
 old_training_data/
+
+cropped/
+aggregate/
+
 medical-masks-dataset/
+face-mask-detection-dataset/

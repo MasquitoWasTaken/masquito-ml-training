@@ -2,19 +2,19 @@ import os
 from PIL import Image
 import xml.etree.ElementTree as ET
 
-path = './medical-masks-dataset/medical-masks-dataset/'
-save = './training_data/cropped/'
+path = './face-mask-detection-dataset/'
+save = './cropped/'
 
 # Create directories to contain cropped faces
-categories = ['mask', 'none', 'poor']
+categories = ['with_mask', 'without_mask', 'mask_weared_incorrect']
 for category in categories:
     if not os.path.exists(save + category):
         os.makedirs(save + category)
 
 # For each original image, find the face bounds
-label_files = os.listdir(path + 'labels/')
+label_files = os.listdir(path + 'annotations/')
 for label_file in label_files:
-    tree = ET.parse(path + 'labels/' + label_file)
+    tree = ET.parse(path + 'annotations/' + label_file)
     root = tree.getroot()
     filename = root.find('./filename').text
     image = Image.open(path + 'images/' + filename)
@@ -32,6 +32,7 @@ for label_file in label_files:
         # Sometimes the dataset has bad parameters; ignore the invalid data
         try:
             cropped = image.crop(dimensions)
-            cropped.save(save + value + '/' + filename + '-' + str(i) + '.jpg')
+            cropped.save(save + value + '/' + filename +
+                         '-' + str(i) + '.png')
         except:
             pass

@@ -6,43 +6,65 @@ Machine learning part of a fullstack application to tell if you're wearing a mas
 
 Followed ImageAI's [prediction model](https://ImageAI.readthedocs.io/en/latest/custom/)
 
-Used images from [Kaggle](https://www.kaggle.com/ivandanilovich/medical-masks-dataset-images-tfrecords)
+Used images from Kaggle:
 
-## mmds_to_imageai.py
+-   [Medical Masks Dataset](https://www.kaggle.com/ivandanilovich/medical-masks-dataset-images-tfrecords)
+-   [Face Mask Detection](https://www.kaggle.com/andrewmvd/face-mask-detection)
+
+## run this program
+
+1. Clone this repository
+2. Install the pip dependencies listed below
+3. Download the latest model from the `releases` tab
+4. Place the `.h5` file in `training_data/models/`
+5. Edit `test_model.py`'s `model` variable to match the filename
+6. Place a test image (or use an included one) in `test_images/`
+7. Edit `test_model.py`'s `test_image` variable to match the filename
+8. Run the code with `python ./test_model.py`
+
+## dataset construction
+
+We used two publicly available datasets from the website Kaggle. Two scripts (`mmds_to_cropped.py` and `fmdds_to_cropped.py`) cropped out the faces labelled in each dataset. `check_images.py` made sure there was no corrupt data. Then we combined the processed images for both datasets into `aggregate/`. Finally, we manually cut down each class into 270 images (limited in quantity by the `improper` class) and used 220:50 train:test ratio, formatted in `training_data/` using ImageAI's directory structure.
+
+## scripts
+
+### mmds_to_imageai.py and fmmds_to_cropped.py
 
 Converts the dataset from Kaggle's format to ImageAI's format
 
-```
-medical-masks-dataset/
-    images/
-        *.jpg
-    labels/
-        *.xml
-```
+### check_images.py
 
-to
+For an unknown reason, Pillow's `Image.save` function in `mmds_to_imageai.py` occasionally spits out unreadable data -- data that can't be parsed by `Image.open`. For that reason, this script finds the invalid files and deletes them. Bye-bye!
 
-```
-training_data/
-    cropped/
-        mask/
-        none/
-        poor/
-```
-
-## train_model.py
+### train_model.py
 
 Trains a simple prediction model based on ImageAI's Prediction class
 
-## test_model.py
+### test_model.py
 
-Test the model against real-world images
+Tests the model against real-world images
 
-To try it out yourself, download `model_*.h5` from the releases tab and place it in `training_data/models/`. Then modify this script's `model` variable to match its filename.
-
-## training_data/ structure
+## directory structure
 
 ```
+face-mask-detection-dataset/
+    annotations/
+    images/
+medical-masks-dataset/
+    medical-masks-dataset/
+        labels/
+        images/
+cropped/
+    mask/
+    mask_weared_incorrect/
+    none/
+    poor/
+    with_mask/
+    without_mask/
+aggregate/
+    mask/
+    improper/
+    none/
 training_data/
     json/
         model_class.json
@@ -51,15 +73,11 @@ training_data/
     test/
         mask/
         none/
-        poor/
+        improper/
     train/
         mask/
         none/
-        poor/
-    cropped/
-        mask/
-        none/
-        poor/
+        improper/
 ```
 
 ## pip dependencies
