@@ -15,7 +15,7 @@ Used images from Kaggle:
 
 1. Clone this repository
 2. Install the pip dependencies listed below
-3. Download the latest model from the `releases` tab
+3. Download the latest model from the [releases](https://github.com/MasquitoWasTaken/masquito-ml-training/releases) tab
 4. Place the `.h5` file in `training_data/models/`
 5. Edit `test_model.py`'s `model` variable to match the filename
 6. Place a test image (or use an included one) in `test_images/`
@@ -81,6 +81,8 @@ training_data/
 ```
 
 ## pip dependencies
+
+Note: you **must** use Python <3.8 (I recommend 3.7).
 
 ```
 tensorflow<2
