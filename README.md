@@ -91,4 +91,5 @@ numpy
 keras
 opencv-python
 pillow
+imageai
 ```
